@@ -14,7 +14,7 @@ def index(request):
 def tmp(request):
     print(1000000000000000000)
     context = {'latest_question_list': 'tmp'}
-    # return render(request, 'polls/tmp.html',context)
+    return render(request, 'polls/tmp1.html',context)
 
 
 def search_table(request): 

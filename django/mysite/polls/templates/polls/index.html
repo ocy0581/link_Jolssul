@@ -6,32 +6,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="/static/js/contact.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!-- <script src="/static/js/contact.js"></script> -->
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> -->
 
     <title>Document</title>
 
 </head>
 <body>
-    <!-- 127.1.1.1:8000/polls/ -->
+    <div class="tmpbox">
+        tmp
+    </div>
+    <!-- 127.1.1.1:8000/polls/
     <fieldset id="search_fieldset"> 
         <input id="search_input" type="search" /> 
         <button id="search_button" type="submit"><i class="fa fa-search">submit</i>
         </button> 
-    </fieldset>
-    <script>
+    </fieldset> -->
+    <!-- <script>
         $('#search_button').click(function(){ 
             var search_key = $('#search_input').val() 
             $.ajax({ 
-                url:"{% url 'post:search/'%}", 
+                url:"", 
                 data : { 'search_key':search_key}, 
                 success:function(data){ 
                     $('#data_table').html(data) 
                 } 
             }) 
         }) 
-    </script>
+    </script> -->
 
     
     
