@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,25 +19,35 @@
     <div class="tmpbox">
         tmp
     </div>
-    <!-- 127.1.1.1:8000/polls/
+    {{latest_question_list}}
     <fieldset id="search_fieldset"> 
         <input id="search_input" type="search" /> 
         <button id="search_button" type="submit"><i class="fa fa-search">submit</i>
         </button> 
-    </fieldset> -->
-    <!-- <script>
+    </fieldset>
+    <script>
+        //http://127.0.0.1:8000/
         $('#search_button').click(function(){ 
             var search_key = $('#search_input').val() 
             $.ajax({ 
-                url:"", 
+                method:'post',
+                url:"{% url 'polls:tmp'%}", 
                 data : { 'search_key':search_key}, 
                 success:function(data){ 
                     $('#data_table').html(data) 
                 } 
             }) 
         }) 
-    </script> -->
+    </script>
 
+    <div class="tmpbox">
+        <form action="{% url 'polls:tmp' %}" method="post">{% csrf_token %}
+            <label for="your_name">Your name: </label>
+            <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+            <input type="submit" value="OK">
+        </form>
+        
+    </div>
     
     
 </body>
