@@ -1,0 +1,31 @@
+redis
+
+https://github.com/tporadowski/redis/releases
+
+Redis-x64-5.0.10.msi
+
+위에것 설치 이후에 사용가능
+
+pip 목록
+
+pip install django
+pip install channels
+pip install channels_redis
+
+
+사용법
+
+터미널에서 django\mysite> 에서
+
+python manage.py runserver 
+
+입력시 127.0.0.1:8000/이 열림
+
+여기서 인터넷 주소창에 
+http://127.0.0.1:8000/chat/
+
+입력
+그리고  textarea 에 아무 문자열(ex: tmp, lobby) 입력
+다른 브라우저(다른 탭)에서 똑같이 들어와서 textarea에 위에서 입력한 문자 입력
+
+들어온 곳에서 작은 곳에 문자입력후 send 클릭 혹은 엔터 입력시 전송되고 큰 textarea에 글자가 반영됨
