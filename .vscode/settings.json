@@ -9,6 +9,6 @@
     "jupyter.jupyterServerType": "local",
     "emmet.includeLanguages": {
         "django-html": "html",
-   },
+   }
    
 } 
