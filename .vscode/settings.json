@@ -1,3 +1,14 @@
 {
-    "jupyter.jupyterServerType": "local"
-}
+    "auto-close-tag.enableAutoCloseSelfClosingTag": false,
+    "files.associations": {
+        "**/*.html": "html",
+        "**/templates/**/*.html": "django-html",
+        "**/templates/**/*": "django-txt",
+        "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+    },
+    "jupyter.jupyterServerType": "local",
+    "emmet.includeLanguages": {
+        "django-html": "html",
+   },
+   
+} 
