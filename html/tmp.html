@@ -27,7 +27,6 @@
       console.log(results)
       t=t+1;
       if (t === 10){
-          return 0;
       }
       drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
                      {color: '#00FF00', lineWidth: 4});
@@ -65,6 +64,7 @@
       height: 720
     });
     camera.start();
+    
     // console.log(holistic.results.leftHandLandmarks)
     </script>
 </html>

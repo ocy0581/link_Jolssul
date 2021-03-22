@@ -19,6 +19,7 @@
         'ws://' + window.location.host +
         '/ws/chat/' + roomName + '/');
 
+    // recieve 
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
@@ -42,6 +43,8 @@
         chatSocket.send(JSON.stringify({
             'message': message
         }));
+        //이 부분을 바꾸면 영상을 보내는것이 가능해 보임
+        
 
         messageInputDom.value = '';
     };
