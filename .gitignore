@@ -1,4 +1,4 @@
 .vscode/
 .tmp.py
 .tmp.js
-./python/.ipynb_checkpoint
+python/.ipynb_checkpoints/
