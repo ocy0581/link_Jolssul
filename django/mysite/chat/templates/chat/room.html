@@ -11,8 +11,9 @@
     <input id="chat-message-input" type="text" size="100"/><br/>
     <input id="chat-message-submit" type="button" value="Send"/>
 </body>
-<div></div>
+
 <script>
+    {% comment %} room_name_json을 view.py에서 가져옴 {% endcomment %}
     var roomName = {{ room_name_json }};
 
     var chatSocket = new WebSocket(
@@ -26,10 +27,18 @@
         document.querySelector('#chat-log').value += (message + '\n');
     };
 
-    chatSocket.onclose = function(e) {
-        console.error('Chat socket closed unexpectedly');
+    {% comment %} submit 버튼 누르면 send {% endcomment %}
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        var messageInputDom = document.querySelector('#chat-message-input');
+        var message = messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        //이 부분을 다른 JSON 파일로 변경하여 보낼 예정 
+        messageInputDom.value = '';
     };
 
+    {% comment %} 엔터키 누르면 send {% endcomment %}
     document.querySelector('#chat-message-input').focus();
     document.querySelector('#chat-message-input').onkeyup = function(e) {
         if (e.keyCode === 13) {  // enter, return
@@ -37,17 +46,12 @@
         }
     };
 
-    document.querySelector('#chat-message-submit').onclick = function(e) {
-        var messageInputDom = document.querySelector('#chat-message-input');
-        var message = messageInputDom.value;
-        chatSocket.send(JSON.stringify({
-            'message': message
-        }));
-        //이 부분을 바꾸면 영상을 보내는것이 가능해 보임
-        
-
-        messageInputDom.value = '';
+    
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
     };
+
+
 </script>
 
 </html>
