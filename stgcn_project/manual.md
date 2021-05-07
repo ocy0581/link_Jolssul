@@ -51,5 +51,14 @@
   - ```cd torchlight; python setup.py install;```
 - work_dir
   - ```python main.py recognition -c config/st_gcn/<dataset>/train.yaml [--work_dir <work folder>]```
+  
+---
+
+- TODO
+  - train 방법
+  - dataset 형태
+  - 데이터 전처리 과정
+  - 논문 확인
+  - argument 사용법 및 디버그 사용법
     
     
