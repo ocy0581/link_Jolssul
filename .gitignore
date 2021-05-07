@@ -3,3 +3,5 @@
 .tmp.js
 python/.ipynb_checkpoints/
 *.pyc
+
+./stgcn_project/data/
