@@ -50,6 +50,7 @@
 - torchlight : torchlight 설치 파일
   - ```cd torchlight; python setup.py install;```
 - work_dir
+  - 다음 명령(train 실행)을 실행할 때 사용되는 디렉토리
   - ```python main.py recognition -c config/st_gcn/<dataset>/train.yaml [--work_dir <work folder>]```
   
 ---
