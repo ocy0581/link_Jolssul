@@ -20,6 +20,7 @@
       - ```python main.py recognition -c config/st_gcn/ntu-xview/test.yaml```
       - ```python main.py recognition -c config/st_gcn/ntu-xsub/test.yaml```
 - data : dataset
+  - 용량이 50GB가 넘기에 gitignore 되어 있음
   - *_train
     - Kinetics-skeleton(원본 데이터)
       - download link : [Kinetics-skeleton](https://drive.google.com/drive/folders/1SPQ6FmFsjGg3f59uCWfdUWI-5HJM_YhZ)
@@ -52,6 +53,9 @@
 - work_dir
   - 다음 명령(train 실행)을 실행할 때 사용되는 디렉토리
   - ```python main.py recognition -c config/st_gcn/<dataset>/train.yaml [--work_dir <work folder>]```
+  - work_dir 안에서 파일이나 디렉토리를 만들어 줄 필요 없음
+  - 출력물이 나오는 디렉토리라고 생각하면 됨
+  - work_dir 지정은 위 명령줄에서 인수로 추가해주거나 train.yaml의 line 1에서 지정 가능
   
 ---
 
