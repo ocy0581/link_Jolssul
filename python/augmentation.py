@@ -18,16 +18,19 @@ class DataAugmentation(object):
     1/4의 확률로 y축 축소
 
     '''
-    def __init__(self, sample_data,max_scale=0.05,eps = 0.5 ):
+    def __init__(self, sample_data,max_scale=0.05,eps = 0.5,device = 'cpu' ):
         self.eps = eps
         if(eps > 1 ):
             self.eps = 1
 
 
         self.data_shape = sample_data.shape
-        self.x = torch.FloatTensor([1,0,0]*21).repeat(self.data_shape[0]*self.data_shape[1]).reshape(self.data_shape)
-        self.y = torch.FloatTensor([0,1,0]*21).repeat(self.data_shape[0]*self.data_shape[1]).reshape(self.data_shape)
-        self.z = torch.FloatTensor([0,0,1]*21).repeat(self.data_shape[0]*self.data_shape[1]).reshape(self.data_shape)
+        self.x = torch.FloatTensor([1,0,0]*self.data_shape[0]).repeat(self.data_shape[0]*self.data_shape[1]
+        ).reshape(self.data_shape).to(device)
+        self.y = torch.FloatTensor([0,1,0]*self.data_shape[0]).repeat(self.data_shape[0]*self.data_shape[1]
+        ).reshape(self.data_shape).to(device)
+        self.z = torch.FloatTensor([0,0,1]*self.data_shape[0]).repeat(self.data_shape[0]*self.data_shape[1]
+        ).reshape(self.data_shape).to(device)
 
         self.scale = max_scale
 
