@@ -4,8 +4,8 @@
 - ntu-xsub
 - ntu-xview
 
-## input data shape
-- (N, C, T, V, M)
+## input data shape(net.st_gcn.Model.__init__())
+- (N, C, T, V, M): 64, 3, 300, 25, 2
   - N: batch size
   - C: in_channel 
   - T: 인풋 시퀀스 길이

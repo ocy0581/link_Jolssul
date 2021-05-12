@@ -8,7 +8,8 @@ from net.utils.graph import Graph
 
 from .st_gcn import Model as ST_GCN
 
-class Model(nn.Module):
+
+class Mocdel(nn.Module):
 
     def __init__(self, *args, **kwargs):
         super().__init__()
