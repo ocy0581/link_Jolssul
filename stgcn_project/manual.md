@@ -4,6 +4,15 @@
 - ntu-xsub
 - ntu-xview
 
+## input data shape
+- (N, C, T, V, M)
+  - N: batch size
+  - C: in_channel 
+  - T: 인풋 시퀀스 길이
+  - V: 그래프 노드의 수
+  - M: 프레임의 인스턴스 수(프레임 길이 말하는 듯)
+
+
 ## 디렉토리 및 파일 설명
 
 - config : configuration files
