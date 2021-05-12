@@ -23,3 +23,23 @@ def load_tensor(dir_names):
         nums.append(i)
 
     return lt_list, rt_list, ft_list, pt_list, nums
+
+
+def load_tensor_hand(dir_names):
+    '''
+    http://localhost:8888/tree/15th_dataset/output/tensor/KETI_SL_0000000001
+    '''
+    '../../../15th_dataset/output/tensor/'
+    'git/link_Jolssul/python/output/tensor/'
+    hand_list = []
+    nums = []
+    for i, dir_name in enumerate(dir_names):
+        path = '../../../15th_dataset/output/tensor/' + dir_name[:-4]
+        if(dir_name[-4:] != '.MOV'):
+            path +=dir_name[-4:]
+        if not (os.path.isdir(path)):
+            continue
+        hand_list.append(torch.load(path+'/hand.pt'))
+        nums.append(i)
+
+    return hand_list , nums
