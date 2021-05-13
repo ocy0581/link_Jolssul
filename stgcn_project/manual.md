@@ -1,8 +1,14 @@
 ## 데이터셋
 
 - kinetics-skeleton
+  - data = kinetics-skeleton/train_data.npy
+  - data.shape : (240436, 3, 300, 18, 2)
 - ntu-xsub
+  - data = NTU-RGB-D/xsub/train_data.npy
+  - data.shape : ( 40091, 3, 300, 25, 2)
 - ntu-xview
+  - data = NTU-RGB-D/xsub/train_data.npy
+  - data.shape : ( 37646, 3, 300, 25, 2)
 
 ## input data shape(net.st_gcn.Model.__init__())
 - (N, C, T, V, M): 64, 3, 300, 25, 2
