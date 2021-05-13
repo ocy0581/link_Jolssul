@@ -12,6 +12,7 @@
 
 
 ## input data shape(net.st_gcn.Model.__init__())
+
 - (N, C, T, V, M)
   - N: batch size
   - C: in_channel 
@@ -24,6 +25,28 @@
   - (N, C, T, V, M) : (N, 3, 300, 25, 2)
 - ntu-xview
   - (N, C, T, V, M) : (N, 3, 300, 25, 2)
+  
+
+## mediapipe data shape(link_Jolssul.python.output.tentsor)
+
+- (T, V, C)
+  - T: time step(파일 마다 다름, 통상 130~169 사이 정도 )
+  - V: 그래프 노드의 수
+  - C: x, y, z
+- KETI_SL_0000000002/left_hand.pt
+  - (T, V, C) : (160, 21, 3)
+- KETI_SL_0000000002/pose.pt
+  - (T, V, C) : (160, 33, 3)
+- KETI_SL_0000000003/left_hand.pt
+  - (T, V, C) : (123, 21, 3)
+- KETI_SL_0000000003/pose.pt
+  - (T, V, C) : (123, 33, 3)
+- 부위별 노드 개수(V#)
+  - right_hand : 21
+  - left_hand : 21
+  - pose : 33
+  - face : 468
+  
 
 
 ## 디렉토리 및 파일 설명
