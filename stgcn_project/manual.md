@@ -10,13 +10,20 @@
   - data = NTU-RGB-D/xsub/train_data.npy
   - data.shape : ( 37646, 3, 300, 25, 2)
 
+
 ## input data shape(net.st_gcn.Model.__init__())
-- (N, C, T, V, M): 64, 3, 300, 25, 2
+- (N, C, T, V, M)
   - N: batch size
   - C: in_channel 
   - T: 인풋 시퀀스 길이
   - V: 그래프 노드의 수
   - M: 프레임의 인스턴스 수(프레임 길이 말하는 듯)
+- kinetics-skeleton
+  - (N, C, T, V, M) : (N, 3, 300, 18, 2)
+- ntu-xsub
+  - (N, C, T, V, M) : (N, 3, 300, 25, 2)
+- ntu-xview
+  - (N, C, T, V, M) : (N, 3, 300, 25, 2)
 
 
 ## 디렉토리 및 파일 설명
@@ -34,6 +41,7 @@
       - ```python main.py recognition -c config/st_gcn/kinetics-skeleton/test.yaml```
       - ```python main.py recognition -c config/st_gcn/ntu-xview/test.yaml```
       - ```python main.py recognition -c config/st_gcn/ntu-xsub/test.yaml```
+  
 - data : dataset
   - 용량이 50GB가 넘기에 gitignore 되어 있음
   - *_train
