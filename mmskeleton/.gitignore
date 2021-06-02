@@ -12,6 +12,7 @@ cache/
 checkpoints/*
 save/*
 configs_private/
+.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
