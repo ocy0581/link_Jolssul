@@ -16,14 +16,11 @@ class DataAugmentation(object):
             self.eps = 0
         self.data_shape = sample_data.shape
 
-        self.x = torch.FloatTensor([1,0,0]*int(self.data_shape[2]/3)).repeat(self.data_shape[0]*self.data_shape[1]
-                                                                        ).reshape(self.data_shape).to(device)
+        self.x = torch.FloatTensor([1,0,0]*(self.data_shape[2]//3*self.data_shape[0]*self.data_shape[1])).reshape(self.data_shape).to(device)
 
-        self.y = torch.FloatTensor([0,1,0]*int(self.data_shape[2]/3)).repeat(self.data_shape[0]*self.data_shape[1]
-                                                                        ).reshape(self.data_shape).to(device)
+        self.y = torch.FloatTensor([0,1,0]*(self.data_shape[2]//3*self.data_shape[0]*self.data_shape[1])).reshape(self.data_shape).to(device)
 
-        self.z = torch.FloatTensor([0,0,1]*int(self.data_shape[2]/3)).repeat(self.data_shape[0]*self.data_shape[1]
-                                                                        ).reshape(self.data_shape).to(device)
+        self.z = torch.FloatTensor([0,0,1]*(self.data_shape[2]//3*self.data_shape[0]*self.data_shape[1])).reshape(self.data_shape).to(device)
 
         self.scale = max_scale
 
@@ -66,12 +63,13 @@ if __name__ == '__main__':
     a = torch.FloatTensor([0.7,0.7,0.7]*21).repeat(data_shape[0]*data_shape[1]).reshape(data_shape)
 
     model = DataAugmentation(a,0.01,1)
-    print(a[0][0])
+    print('입력\n',a[0][0])
     t = []
-    for x in range(1000):
-        t.append(model(a)[0][0][:3])
+    for x in range(10):
+        t.append(model(a)[0][0])
         # print(t[-1])
     
     avg_x = sum([x[0] for x in t])/len(t)
     avg_y = sum([x[1] for x in t])/len(t)
-    print(avg_x,avg_y)
+    # print(avg_x,avg_y)
+    print('출력\n',t[0])

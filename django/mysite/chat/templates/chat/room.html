@@ -1,24 +1,29 @@
 <!-- chat/templates/chat/room.html -->
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
+    <link rel="stylesheet" type="text/css"  href="{% static 'css/main.css'%}">
 </head>
 
 <body>
     <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
     <input id="chat-message-input" type="text" size="100"/><br/>
     <input id="chat-message-submit" type="button" value="Send"/>
+    <div class="tmp_box"></div>
 </body>
 
 <script>
     {% comment %} room_name_json을 view.py에서 가져옴 {% endcomment %}
     var roomName = {{ room_name_json }};
+    var loc = window.location;
 
     var chatSocket = new WebSocket(
-        'ws://' + window.location.host +
+        'wss://' +loc.host.slice(0,loc.host.length-1)+1 +
         '/ws/chat/' + roomName + '/');
+
 
     // recieve 
     chatSocket.onmessage = function(e) {
@@ -35,7 +40,7 @@
             'message': message
         }));
         //이 부분을 다른 JSON 파일로 변경하여 보낼 예정 
-        messageInputDom.value = '';
+        messageInputDom.value = ''; 
     };
 
     {% comment %} 엔터키 누르면 send {% endcomment %}
