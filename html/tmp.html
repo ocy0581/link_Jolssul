@@ -1,66 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #cover{
+            width: 300px;
+            height: 300px;
+            background-color: aqua;
+            position: absolute;
+            z-index: 100;
+        }
+        
+        .tmp_box{
+            width: 300px;
+            height: 300px;
+            background-color: orange;
+            z-index: 0;
+        }
+    </style>
 </head>
-
 <body>
-  <div class="container">
-    <video class="input_video"></video>
-    <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-  </div>
+    <div id="cover">
+        <button onclick="off()"></button>
+    </div>
+    
+    <div class="tmp_box"></div>
+
 </body>
-
-
-<script type="module">
-  const videoElement = document.getElementsByClassName('input_video')[0];
-  const canvasElement = document.getElementsByClassName('output_canvas')[0];
-  const canvasCtx = canvasElement.getContext('2d');
-  function onResults(results) {
-    console.log(results.leftHandLandmarks)
-    canvasCtx.save();
-    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    canvasCtx.drawImage(
-        results.image, 0, 0, canvasElement.width, canvasElement.height);
-    drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-                   {color: '#00FF00', lineWidth: 4});
-    drawLandmarks(canvasCtx, results.poseLandmarks,
-                  {color: '#FF0000', lineWidth: 2});
-    drawConnectors(canvasCtx, results.faceLandmarks, FACEMESH_TESSELATION,
-                   {color: '#C0C0C070', lineWidth: 1});
-    drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS,
-                   {color: '#CC0000', lineWidth: 5});
-    drawLandmarks(canvasCtx, results.leftHandLandmarks,
-                  {color: '#00FF00', lineWidth: 2});
-    drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS,
-                   {color: '#00CC00', lineWidth: 5});
-    drawLandmarks(canvasCtx, results.rightHandLandmarks,
-                  {color: '#FF0000', lineWidth: 2});
-    canvasCtx.restore();
-  }
-  
-  const holistic = new Holistic({locateFile: (file) => {
-    return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
-  }});
-  holistic.setOptions({
-    modelComplexity: 1,
-    smoothLandmarks: true,
-    minDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.5
-  });
-  holistic.onResults(onResults);
-  
-  const camera = new Camera(videoElement, {
-    onFrame: async () => {
-      await holistic.send({image: videoElement});
-    },
-    width: 1280,
-    height: 720
-  });
-  camera.start();
-  </script>
+    <script>
+        function off(){
+            cover = document.querySelector('#cover')
+            cover.style.display= 'none'
+        }
+    </script>
 </html>

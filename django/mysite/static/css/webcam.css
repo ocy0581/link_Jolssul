@@ -1,0 +1,15 @@
+.input_video {
+    width: 1280px;
+    height: 720px;
+}
+.output_canvas{
+    width: 640px;
+    height: 360px;
+}
+#cover{
+    width: 1920px;
+    height: 1080px;
+    background-color: beige;
+    position: absolute;
+    z-index: 100;
+}

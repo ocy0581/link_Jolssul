@@ -1,70 +1,35 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
-  <meta charset="utf-8">
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands//hands.js" crossorigin="anonymous"></script> {% endcomment %}
+    
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.3.1628005986//hands.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css"  href="{% static 'css/webcam.css'%}">
 </head>
 
 <body>
+  <!-- <div id="cover">
+    <input type="text" size="100" id="login">
+    <button class="submit_button" onclick="connect()">submit</button>
+  </div> -->
   <div class="container">
     <video class="input_video"></video>
-    <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-    <button id="tmp">tmp</button>
+    {% comment %} <canvas class="output_canvas"></canvas> {% endcomment %}
+    <button id="send_button" onclick="send_data()">send data</button>
+    
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
+    <input id="chat-message-input" type="text" size="100"/><br/>
+    <input id="chat-message-submit" type="button" value="Send"/>
   </div>
 </body>
-<script type="module">
-    const videoElement = document.getElementsByClassName('input_video')[0];
-    const canvasElement = document.getElementsByClassName('output_canvas')[0];
-    const canvasCtx = canvasElement.getContext('2d');
-    let date = new Date();
-    var btn = document.getElementById('tmp');
-    btn.addEventListener('click',()=> {
-        camera.stop();
-    });
-    
-    function onResults(results) {
-      canvasCtx.save();
-      canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-      canvasCtx.drawImage(
-          results.image, 0, 0, canvasElement.width, canvasElement.height);
-      if((date - new Date())*(-1) > 1000 ){
-        var json = JSON.stringify({
-          'data' : results.multiHandLandmarks,
-        })
-        console.log(json);
-        date = new Date();
-      }
-      if (results.multiHandLandmarks) {
-        for (const landmarks of results.multiHandLandmarks) {
-
-          drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
-                         {color: '#00FF00', lineWidth: 5});
-          drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 2});
-        }
-      }
-      canvasCtx.restore();
-    }
-    
-    const hands = new Hands({locateFile: (file) => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-    }});
-    hands.setOptions({
-      maxNumHands: 2,
-      minDetectionConfidence: 0.5,
-      minTrackingConfidence: 0.5
-    });
-    hands.onResults(onResults);
-    
-    const camera = new Camera(videoElement, {
-      onFrame: async () => {
-        await hands.send({image: videoElement});
-      },
-      width: 1280,
-      height: 720
-    });
-    camera.start();
-    </script>
+<script src=" {% static 'js/mediapipe.js' %}"></script>
+<script src=" {% static 'js/websocket.js' %}"></script>
+<script>
+  connect();
+</script>
 </html>
