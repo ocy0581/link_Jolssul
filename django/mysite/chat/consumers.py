@@ -4,6 +4,10 @@ import json
 import numpy as np
 from .model import model
 
+
+lstm_model = model.LstmModel()
+
+
 zeros_list = [[0,0,0]]*21
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -176,6 +180,10 @@ class webCamConsumers(AsyncWebsocketConsumer):
 
     def predict(self,data):
         # predict = self.model(data)
+
+        predict_word = lstm_model.predictWord(data)
+
+
         datas = np.array(data)
         print('predict',datas.shape)
         predict = str(datas.shape)
