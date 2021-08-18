@@ -11,9 +11,6 @@ lstm_model = model.LstmModel()
 zeros_list = [[0,0,0]]*21
 
 class ChatConsumer(AsyncWebsocketConsumer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.count = 0;
     async def connect(self):
         # self.count = 0;
         # seq2seq model instance 생성
@@ -70,16 +67,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 
 class webCamConsumers(AsyncWebsocketConsumer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.count = 0
     async def connect(self):
-        # self.model = 0
-        # load model
-        # print(self.channel_name)
-
-
         self.room_group_name = "TestRoom"
-        # self.channel_name = "Test-Room"
         
-
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
@@ -98,7 +91,6 @@ class webCamConsumers(AsyncWebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
-        
 
         print('Disconnected')
 
