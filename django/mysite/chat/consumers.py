@@ -11,7 +11,11 @@ lstm_model = model.LstmModel()
 zeros_list = [[0,0,0]]*21
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.count = 0;
     async def connect(self):
+        # self.count = 0;
         # seq2seq model instance 생성
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         print(self.scope)
@@ -88,10 +92,13 @@ class webCamConsumers(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         
+        self.frame_dict.pop(self.channel_name)
+
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
         )
+        
 
         print('Disconnected')
 
@@ -100,8 +107,8 @@ class webCamConsumers(AsyncWebsocketConsumer):
         receive_dict = json.loads(text_data)
 
         if receive_dict['meta'] == 'end':
-            result = self.predict(self.frame_dict[self.channel_name])
 
+            result = self.predict(self.frame_dict[self.channel_name])
             await self.channel_layer.send(
                 self.channel_name,
                 {
@@ -109,13 +116,14 @@ class webCamConsumers(AsyncWebsocketConsumer):
                     'predict_word':result,
                 }   
             )
+
             self.frame_dict[self.channel_name].clear()
+            self.count = 0;
             return
 
         result = self.preprocess(receive_dict)
 
         if (type(result) != type(None)):
-            # print(type(result))
             self.frame_dict[self.channel_name].append(result)
 
     
@@ -127,8 +135,7 @@ class webCamConsumers(AsyncWebsocketConsumer):
         }))
 
         
-    def preprocess(self,data):        
-        self.count = 0
+    def preprocess(self,data):
 
         if len(data.keys()) < 3:
             return None
@@ -165,26 +172,27 @@ class webCamConsumers(AsyncWebsocketConsumer):
             tmp_list = tmp_list[0]
             if (data['handClass'][0]['label'] == 'Left'):
                 tmp_list.extend(tmp_zeros)
-                print('left')
+                # print('left')
             else :                
                 tmp_zeros.extend(tmp_list)
                 tmp_list = tmp_zeros
-                print('right')
+                # print('right')
 
 
         print(self.count)
         self.count +=1
 
-        print('len_',len(tmp_list))# 42가 출력되어야함
+        print('len ',len(tmp_list))# 42가 출력되어야함
+
         return tmp_list
 
     def predict(self,data):
-        # predict = self.model(data)
-
-        predict_word = lstm_model.predictWord(data)
-
-
         datas = np.array(data)
+
+        predict_word = lstm_model.predictWord(datas)
+
         print('predict',datas.shape)
         predict = str(datas.shape)
         return predict
+
+

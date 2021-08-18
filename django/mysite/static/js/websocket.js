@@ -14,7 +14,7 @@ if(loc.protocol == 'https:'){
 var endpoint = '/ws'+loc.pathname;
 
 
-var chatSocket;
+var webSocket;
 
 function checkid(){
 
@@ -27,12 +27,12 @@ function connect(){
 
     }
     
-    chatSocket = new WebSocket(
+    webSocket = new WebSocket(
         wsStart + host + endpoint
         );
         
     // recieve 
-    chatSocket.onmessage = function(e) {
+    webSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
         document.querySelector('#chat-log').value += (message + '\n');
@@ -41,7 +41,7 @@ function connect(){
     document.querySelector('#chat-message-submit').onclick = function(e) {
         var messageInputDom = document.querySelector('#chat-message-input');
         var message = messageInputDom.value;
-        chatSocket.send(JSON.stringify({
+        webSocket.send(JSON.stringify({
 
             'message': message
         }));
@@ -56,7 +56,7 @@ function connect(){
     };
 
 
-    chatSocket.onclose = function(e) {
+    webSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
     };
 

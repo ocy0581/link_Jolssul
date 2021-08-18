@@ -6,5 +6,5 @@ class LstmModel(object):
         super().__init__()
 
     def predictWord(self,data):
-
-        return 'results';
+        # print("stmModel")
+        return data.shape;

@@ -1,11 +1,12 @@
 
 var timer = 0;
-var count = 3000;
-var flag = false;
+
+
+var count = 5000;
 function send_data(){
     timer = new Date();
     window.setTimeout(()=>{
-        chatSocket.send(JSON.stringify({
+        webSocket.send(JSON.stringify({
             'meta' : 'end',
         }))
     },count)
@@ -14,12 +15,8 @@ function send_data(){
 const videoElement = document.getElementsByClassName('input_video')[0];
 let date = new Date();
 var tmp_results;
+
 function onResults(results) {
-    // canvasCtx.save();
-    // canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    // canvasCtx.drawImage(
-    //     results.image, 0, 0, canvasElement.width, canvasElement.height);
-    // (new Date - date) > 1000 && 
     if((date-timer) < count ){  
         tmp_results = results;
         var json = JSON.stringify({
@@ -27,7 +24,7 @@ function onResults(results) {
             'landmarks' : results.multiHandLandmarks,
             'handClass' : results.multiHandedness,
         })
-        chatSocket.send(json);
+        webSocket.send(json);
         date = new Date()
     }
 }
