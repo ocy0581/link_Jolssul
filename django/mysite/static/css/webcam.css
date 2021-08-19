@@ -6,6 +6,9 @@
     width: 640px;
     height: 360px;
 }
+#chat-log {
+    font-size: 30px;
+}
 #cover{
     width: 1920px;
     height: 1080px;

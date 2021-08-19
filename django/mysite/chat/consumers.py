@@ -115,7 +115,7 @@ class webCamConsumers(AsyncWebsocketConsumer):
 
         result = self.preprocess(receive_dict)
 
-        if (type(result) != type(None)):
+        if (len(result) != 0):
             self.frame_dict[self.channel_name].append(result)
 
     
@@ -159,7 +159,7 @@ class webCamConsumers(AsyncWebsocketConsumer):
             tmp_list = first
 
 
-        else: # 1개의 손만 인식된 경우 
+        elif len(tmp_list) == 1: # 1개의 손만 인식된 경우 
             tmp_zeros = zeros_list.copy()
             tmp_list = tmp_list[0]
             if (data['handClass'][0]['label'] == 'Right'):
