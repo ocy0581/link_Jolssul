@@ -41,10 +41,11 @@ function connect(){
     document.querySelector('#chat-message-submit').onclick = function(e) {
         var messageInputDom = document.querySelector('#chat-message-input');
         var message = messageInputDom.value;
-        webSocket.send(JSON.stringify({
+        document.querySelector('#chat-log').value += (message + '\n');
+        // webSocket.send(JSON.stringify({
 
-            'message': message
-        }));
+        //     'message': message
+        // }));
         //이 부분을 다른 JSON 파일로 변경하여 보낼 예정 
         messageInputDom.value = ''; 
     };

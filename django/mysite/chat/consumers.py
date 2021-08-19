@@ -149,7 +149,7 @@ class webCamConsumers(AsyncWebsocketConsumer):
         if len(tmp_list) == 2:
 
             flag = 1
-            if( data['handClass'][0]['label'] == 'Left'):
+            if( data['handClass'][0]['label'] == 'Right'):
                 flag = 0
 
             first = tmp_list[data['handClass'][flag]['index']].copy()
@@ -162,7 +162,7 @@ class webCamConsumers(AsyncWebsocketConsumer):
         else: # 1개의 손만 인식된 경우 
             tmp_zeros = zeros_list.copy()
             tmp_list = tmp_list[0]
-            if (data['handClass'][0]['label'] == 'Left'):
+            if (data['handClass'][0]['label'] == 'Right'):
                 tmp_list.extend(tmp_zeros)
                 # print('left')
             else :                
