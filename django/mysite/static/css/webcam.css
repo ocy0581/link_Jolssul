@@ -1,6 +1,6 @@
 .input_video {
-    width: 1280px;
-    height: 720px;
+    width: 960px;
+    height: 540px;
 }
 .output_canvas{
     width: 640px;
@@ -15,4 +15,27 @@
     background-color: beige;
     position: absolute;
     z-index: 100;
+}
+.container{
+    overflow: hidden;
+    width: 90%;
+    margin: 5%;
+
+}
+#send_button{
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+
+}
+.video_container {
+    float: left;
+    width: 50%;
+    padding-top: 50px;
+    margin: 2%;
+}
+.chat_container{
+    float: right;
+    width: 30%;
+    margin: 2%;
 }

@@ -4,12 +4,12 @@ import json
 import numpy as np
 from .model import model
 
+lstm_model = model.LstmModel()
+zeros_list = [[0,0,0]]*21
 class webCamConsumers(AsyncWebsocketConsumer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.count = 0
-        self.self.lstm_model = model.LstmModel()
-        self.zeros_list = [[0,0,0]]*21
     async def connect(self):
         self.room_group_name = "TestRoom"
         
@@ -97,7 +97,7 @@ class webCamConsumers(AsyncWebsocketConsumer):
 
 
         elif len(tmp_list) == 1: 
-            tmp_zeros = self.zeros_list.copy()
+            tmp_zeros = zeros_list.copy()
             tmp_list = tmp_list[0]
             if (data['handClass'][0]['label'] == 'Right'):
                 tmp_list.extend(tmp_zeros)
@@ -111,7 +111,7 @@ class webCamConsumers(AsyncWebsocketConsumer):
 
     def predict(self,data):
         datas = np.array(data)
-        predict_word = self.lstm_model.predictWord(datas)
+        predict_word = lstm_model.predictWord(datas)
         print('input shape: ',datas.shape,' predict: ',predict_word)
         return predict_word
  
