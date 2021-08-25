@@ -5,3 +5,5 @@ python/.ipynb_checkpoints/
 *.pyc
 
 ./stgcn_project/data/
+
+*_dummy.py
