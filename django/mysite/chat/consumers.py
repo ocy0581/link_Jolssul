@@ -2,10 +2,12 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 import numpy as np
-from .model import model
+from .model.model import  LstmModel
 
-lstm_model = model.LstmModel()
-zeros_list = [[0,0,0]]*21
+
+lstm_model = LstmModel()
+zeros_list = np.array([[0,0,0]]*21)
+
 class webCamConsumers(AsyncWebsocketConsumer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -86,7 +88,7 @@ class webCamConsumers(AsyncWebsocketConsumer):
         if len(tmp_list) == 2:
 
             flag = 1
-            if( data['handClass'][0]['label'] == 'Right'):
+            if( data['handClass'][0]['label'] == 'Left'):
                 flag = 0
 
             first = tmp_list[data['handClass'][flag]['index']].copy()
@@ -95,18 +97,20 @@ class webCamConsumers(AsyncWebsocketConsumer):
             first.extend(second)
             tmp_list = first
 
-
+        
         elif len(tmp_list) == 1: 
-            tmp_zeros = zeros_list.copy()
-            tmp_list = tmp_list[0]
-            if (data['handClass'][0]['label'] == 'Right'):
-                tmp_list.extend(tmp_zeros)
+            print(data['handClass'][0]['label'])
+            tmp_np = np.array(tmp_list[0])
+            
+            tmp_zeros = zeros_list
+            
+            if (data['handClass'][0]['label'] == 'Left'):
+                tmp_list = np.concatenate((tmp_np,tmp_zeros),axis=0)
 
             else :                
-                tmp_zeros.extend(tmp_list)
-                tmp_list = tmp_zeros
+                tmp_list = np.concatenate((tmp_zeros,tmp_np),axis=0)
 
-
+            print(tmp_list)
         return tmp_list
 
     def predict(self,data):
