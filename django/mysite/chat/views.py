@@ -7,7 +7,7 @@ def index(request):
 
 def room(request, room_name):
     if(room_name =='webcam') :
-        return webcam(request);
+        return webcam(request)
         
     return render(request, 'chat/room.html', {
         'room_name_json': mark_safe(json.dumps(room_name))
