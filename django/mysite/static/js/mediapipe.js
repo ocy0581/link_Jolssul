@@ -17,33 +17,54 @@ let date = new Date();
 var tmp_results;
 
 function onResults(results) {
-    if((date-timer) < count ){  
+    if((date-timer) < count ){
+        // console.log(results)  
         tmp_results = results;
         var json = JSON.stringify({
-            'meta' : 'data',
-            'landmarks' : results.multiHandLandmarks,
-            'handClass' : results.multiHandedness,
+            'meta': 'data',
+            'left': results.leftHandLandmarks,
+            'right': results.rightHandLandmarks,
+            'pose':results.poseLandmarks,
         })
+        console.log(json)
+
         webSocket.send(json);
         date = new Date()
     }
 }
 
-const hands = new Hands({locateFile: (file) => {
-    return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-}});
-hands.setOptions({
-    maxNumHands: 2,
+// const hands = new Hands({locateFile: (file) => {
+//     return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+// }});
+// hands.setOptions({
+//     maxNumHands: 2,
+//     minDetectionConfidence: 0.5,
+//     minTrackingConfidence: 0.5
+// });
+// hands.onResults(onResults);
+
+// const camera = new Camera(videoElement, {
+//     onFrame: async () => {
+//     await hands.send({image: videoElement});
+//     },
+
+const holistic = new Holistic({locateFile: (file) => {
+    return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
+  }});
+  holistic.setOptions({
+    modelComplexity: 1,
+    smoothLandmarks: true,
     minDetectionConfidence: 0.5,
     minTrackingConfidence: 0.5
-});
-hands.onResults(onResults);
-
-const camera = new Camera(videoElement, {
+  });
+  holistic.onResults(onResults);
+  
+  const camera = new Camera(videoElement, {
     onFrame: async () => {
-    await hands.send({image: videoElement});
+      await holistic.send({image: videoElement});
     },
     width: 1280,
     height: 720
 });
 camera.start();
+
