@@ -3,7 +3,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 import numpy as np
 from .model.model import  LstmModel
-
+from django.template.loader import render_to_string
 
 lstm_model = LstmModel()
 zeros_list = np.array([[0,0,0]]*21)
@@ -40,8 +40,9 @@ class webCamConsumers(AsyncWebsocketConsumer):
         receive_dict = json.loads(text_data)
 
         if receive_dict['meta'] == 'end':
-
+            print(len(self.frame_dict[self.channel_name]))
             result = self.predict(self.frame_dict[self.channel_name])
+            
             await self.channel_layer.send(
                 self.channel_name,
                 {
@@ -52,12 +53,20 @@ class webCamConsumers(AsyncWebsocketConsumer):
 
             self.frame_dict[self.channel_name].clear()
             self.count = 0
+
+            return
+            
+        
+        elif receive_dict['meta'] == 'error':
+            self.frame_dict[self.channel_name].clear()
+            self.count = 0
             return
 
         result = self.preprocess(receive_dict)
 
-        if (len(result) != 0):
+        if (type(result) != type(None)):
             self.frame_dict[self.channel_name].append(result)
+        return 'hi'
 
     
     async def send_sdp(self, event):
@@ -134,7 +143,7 @@ class webCamConsumers(AsyncWebsocketConsumer):
 
         print('predict',datas.shape)
         predict = str(datas.shape)
-        return predict
+        return predict_word
 
 
 

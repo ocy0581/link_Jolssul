@@ -23,12 +23,12 @@
   <div class="container">
     <div class="video_container">
       <video class="input_video"></video>
-      <button id="send_button" onclick="send_data()">send data</button>
+      <button id="send_button" onclick="send_data()">Button</button>
       
     </div>
     <div class="chat_container">
       <textarea id="chat-log" cols="30" rows="20"></textarea><br/>
-      <input id="chat-message-input" type="text" size="50"/><br/>
+      <input id="chat-message-input" type="text" size="50"></input><br/>
       <input id="chat-message-submit" type="button" value="Send"/>
     </div>
   </div>
@@ -36,6 +36,6 @@
 <script src=" {% static 'js/mediapipe.js' %}"></script>
 <script src=" {% static 'js/websocket.js' %}"></script>
 <script>
-  connect();
+  connect();  
 </script>
 </html>

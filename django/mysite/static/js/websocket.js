@@ -35,7 +35,11 @@ function connect(){
     webSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
-        document.querySelector('#chat-log').value += (message + '\n');
+        if (message == '사마귀') {
+            document.querySelector('#chat-message-submit').onclick()
+        } else {
+            document.querySelector('#chat-message-input').value += (message + ' ');
+        }
     };
 
     document.querySelector('#chat-message-submit').onclick = function(e) {
