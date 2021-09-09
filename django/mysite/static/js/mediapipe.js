@@ -7,6 +7,10 @@ function send_data(){
     Mode_Toggle = !Mode_Toggle
 }
 
+function reset_log(){
+    document.getElementById("chat-log").value='';
+}
+
 const videoElement = document.getElementsByClassName('input_video')[0];
 let date = new Date();
 var tmp_results;
